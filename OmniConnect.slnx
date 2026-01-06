@@ -1,0 +1,11 @@
+<Solution>
+  <Project Path="Common/Common.csproj" />
+  <Project Path="ControlPanel/ControlPanel.csproj" />
+  <Project Path="Hub/Hub.csproj" />
+  <Project Path="LogController/LogController.csproj" />
+  <Project Path="MotionSensor/MotionSensor.csproj" />
+  <Project Path="SecurityCenter/SecurityCenter.csproj" Id="1ff0f3ad-b8f2-49f4-98ad-3b0af6c918b9" />
+  <Project Path="SmartLamp/SmartLamp.csproj" />
+  <Project Path="SmartLock/SmartLock.csproj" />
+  <Project Path="ThermoSensor/ThermoSensor.csproj" />
+</Solution>

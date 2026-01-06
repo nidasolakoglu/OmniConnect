@@ -1,0 +1,32 @@
+﻿# OmniConnect RuleEngine rules
+# Format: IF <conditions> THEN <actions>
+# Conditions: TEMP>28, TEMP<26, MODE=AWAY, MOTION=ON, ROOM=KITCHEN, MOTION_COUNT_60S>=3
+# Actions: LAMP=ON/OFF ; LOCK=LOCK/UNLOCK ; ALERT=LEVEL:ROOM
+
+# =========================================================
+# DEMO 1: INFO ONLY (SARI)
+# =========================================================
+
+# ✅ Sadece bunu açık bırak(DEMO 1):
+#IF MOTION=ON THEN ALERT=INFO:ROOM
+
+# ❌ Demo boyunca karışmasın diye her şeyi kapat:
+# IF TEMP>28 THEN LAMP=ON
+# IF TEMP<26 THEN LAMP=OFF
+# IF MOTION=ON AND MODE=AWAY THEN LOCK=LOCK; ALERT=WARNING:ROOM
+# IF MOTION_COUNT_60S>=3 AND MODE=AWAY THEN LOCK=LOCK; ALERT=CRITICAL:ROOM
+# IF MOTION=ON AND MODE=AWAY AND TEMP>30 THEN ALERT=CRITICAL:ROOM
+
+# =========================================================
+# DEMO 2: WARNING (KAPALI)
+# =========================================================
+# ✅ Sadece bunu açık bırak(DEMO 2):
+#IF MOTION=ON THEN ALERT=WARNING:ROOM
+
+# =========================================================
+# DEMO 3: CRITICAL / EMERGENCY (KAPALI)
+# =========================================================
+# ✅ Sadece bunu açık bırak(DEMO 3):
+ IF MOTION=ON THEN ALERT=INFO:ROOM
+ IF MOTION=ON THEN ALERT=WARNING:ROOM
+ IF MOTION_COUNT_60S>=3 AND MODE=AWAY THEN LOCK=LOCK; ALERT=CRITICAL:ROOM
