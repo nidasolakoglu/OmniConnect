@@ -1,109 +1,161 @@
-# OmniConnect Smart Home Network Simulator
+🚀 OmniConnect – Smart Home Network Simulator
 
-## Project Overview
-OmniConnect is a distributed smart home simulation system that demonstrates the use of TCP and UDP socket programming.  
-The system models a real smart home with sensors, actuators, and user interfaces communicating through a central Hub.
+OmniConnect is a distributed smart home simulation platform developed as a Computer Network Programming project.
+It demonstrates real-world usage of TCP, UDP, and Inter-Process Communication (IPC) in a modular IoT-style architecture.
 
-The Hub acts as the server, managing all devices and system state.  
-Clients connect to the Hub using TCP for reliable commands and events, and UDP for real-time state broadcasting.
+The system models a real smart home where multiple independent devices (sensors, actuators, and user interfaces) communicate through a central Hub.
 
-This project was developed as a final project for the Computer Network Programming course.
+🧠 Architecture Overview
 
----
+OmniConnect follows a hub-and-spoke architecture:
 
-## System Components
+ThermoSensor  ──┐
+MotionSensor ──┤
+SmartLamp    ──┤
+SmartLock    ──┤──>   HUB   ───> ControlPanel
+LogController──┘             └──> SecurityCenter
 
-### Server
-**Hub**
-- Central server
-- Accepts TCP connections from all devices
-- Processes sensor data
-- Controls actuators
-- Broadcasts system state via UDP
 
-### Clients
+All components are implemented as independent processes.
 
-**Sensors**
-- ThermoSensor
-- MotionSensor
+The Hub is responsible for:
 
-**Actuators**
-- SmartLamp
-- SmartLock
+Device registration
 
-**User Interfaces**
-- ControlPanel
-- SecurityCenter
+Message routing
 
-**Support Service**
-- LogController (Named Pipe based logging service)
+Rule evaluation
 
-**Shared Library**
-- Common (shared message models and utilities)
+State broadcasting
 
----
+Alert generation
 
-## Network Communication Design
+🌐 Network & IPC Design
+Purpose	Technology	Why
+Device registration & commands	TCP	Reliable and ordered
+Motion events & file transfer	TCP	Guaranteed delivery
+Temperature telemetry	UDP	Low latency
+System state broadcast	UDP	Real-time updates
+Logging	Named Pipes (IPC)	Fast local communication
 
-| Purpose | Protocol | Reason |
-|--------|--------|--------|
-| Device registration and commands | TCP | Reliability and ordering |
-| Motion events and file transfer | TCP | Guaranteed delivery |
-| Temperature telemetry | UDP | Low latency |
-| Real-time system state | UDP | Fast broadcast |
-| Local logging | Named Pipes | High performance IPC |
+This hybrid design mirrors how real IoT systems separate control traffic from telemetry.
 
----
+🔥 Rule Engine
 
-## How to Build
+OmniConnect includes a dynamic Rule Engine powered by a simple DSL:
 
-1. Open `OmniConnect.slnx`
-2. Build the solution
-3. Make sure all projects compile successfully
+IF <conditions> THEN <actions>
 
----
 
-## How to Run
+Example:
 
-1. Start **Hub** (Server)
-2. Start the following clients:
-   - ThermoSensor
-   - MotionSensor
-   - SmartLamp
-   - SmartLock
-   - ControlPanel
-   - SecurityCenter
-   - LogController
+IF MOTION=ON AND MODE=AWAY THEN LOCK=LOCK; ALERT=WARNING:ROOM
+IF TEMP>28 THEN LAMP=ON
 
-Clients can be started in any order after the Hub.
 
----
+Supported conditions:
 
-## Features
+Temperature thresholds
 
-- Multi-client TCP server
-- UDP real-time state broadcasting
-- Motion-triggered events with file transfer
-- Rule-based automation system
-- Live control panel
-- Security alert visualization
-- Named pipe based logging
+Motion detection
 
----
+System mode (HOME / AWAY)
 
-## Testing
+Room information
 
-The system was tested using:
-- Multiple simultaneous clients
-- Frequent UDP sensor updates
-- Motion events and snapshot transfers
-- Dynamic rule updates
-- Client disconnections
+Motion frequency
 
----
+Actions:
 
-## Credits
+Turn lamp on/off
 
-Developed by: Elif Nida Solakoglu  
-AI Tools Used: ChatGPT, Claude, and Gemini  
-AI tools were used for architecture planning, debugging, protocol design, and visual asset generation.
+Lock/unlock doors
+
+Trigger INFO / WARNING / CRITICAL alerts
+
+Rules can be changed without restarting the system.
+
+🧩 System Components
+Server
+
+Hub
+Central TCP/UDP server, rule engine, and state manager.
+
+Sensors
+
+ThermoSensor (UDP temperature telemetry)
+
+MotionSensor (TCP motion + snapshot transfer)
+
+Actuators
+
+SmartLamp
+
+SmartLock
+
+User Interfaces
+
+ControlPanel – live system state
+
+SecurityCenter – visual alert map
+
+Support
+
+LogController – Named Pipe based logging
+
+Common – shared message models & configs
+
+▶️ How to Run
+
+Open OmniConnect.slnx
+
+Build the solution
+
+Start components in this order:
+
+Hub
+ThermoSensor
+MotionSensor
+SmartLamp
+SmartLock
+ControlPanel
+SecurityCenter
+LogController
+
+
+Clients may be started in any order after the Hub.
+
+🧪 Features Demonstrated
+
+Multi-client TCP server
+
+UDP telemetry & broadcasting
+
+File transfer over TCP
+
+Rule-based automation
+
+Live UI dashboards
+
+Inter-process logging
+
+Fault-tolerant design
+
+🎯 Why This Project Is Strong
+
+OmniConnect is not just a “socket demo” — it models:
+
+A real IoT architecture
+
+Hybrid protocol usage
+
+Event-driven automation
+
+Concurrent distributed systems
+
+It demonstrates how different communication models are combined in a realistic networked system.
+
+👤 Author
+
+Elif Nida Solakoğlu
+Computer Engineering
